@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2566">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; min-height: 15.0px}
+  </style>
+</head>
+<body>
+<p class="p1">let sparkles = [];</p>
+<p class="p2"><br></p>
+<p class="p1">function setup() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>createCanvas(600, 400);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background(255);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>cursor(); // Default system cursor</p>
+<p class="p1"><span class="Apple-converted-space">  </span>textFont('Courier New'); // Use Courier New</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function draw() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>background(255);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Generate sparkles frequently</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (random() &lt; 0.4) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sparkles.push(new Sparkle(mouseX, mouseY));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>for (let i = sparkles.length - 1; i &gt;= 0; i--) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sparkles[i].update();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>sparkles[i].show();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (sparkles[i].finished()) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>sparkles.splice(i, 1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">class Sparkle {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>constructor(x, y) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>this.x = x + random(-3, 3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>this.y = y + random(-3, 3);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>this.alpha = 255;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>this.size = random(10, 14); // Slightly smaller = appears thinner</p>
+<p class="p1"><span class="Apple-converted-space">    </span>this.letter = String.fromCharCode(random(97, 123)); // lowercase a-z</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>update() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>this.alpha -= 1;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>finished() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return this.alpha &lt;= 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>show() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>noStroke(); // no outline = looks thinner</p>
+<p class="p1"><span class="Apple-converted-space">    </span>fill(0, this.alpha); // only fill the text</p>
+<p class="p1"><span class="Apple-converted-space">    </span>textSize(this.size);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>textAlign(CENTER, CENTER);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text(this.letter, this.x, this.y);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+</body>
+</html>
