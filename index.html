@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> ~yein~ </title>
+  <title> yein </title>
   <style>
     body {
       margin: 0;
@@ -54,7 +54,7 @@
       color: black;
       opacity: 0.8;
       pointer-events: none;
-      animation: sparkleFloat 3s ease-out forwards, sparkleRotation 3s ease-out forwards; /* 회전, 부풀기 애니메이션 추가 */
+      animation: sparkleFloat 6s ease-out forwards, sparkleRotation 6s ease-out forwards; /* 속도 6초로 설정 */
     }
 
     @keyframes sparkleFloat {
@@ -95,7 +95,7 @@
   </div>
 
   <script>
-    const chars = 'abcdefghijklmnopqrstuvwxyz'.split('').filter((_, i) => i % 2 === 0); // 알파벳 개수를 약 3/2로 줄임 (홀수 인덱스 문자만 사용)
+    const chars = 'abcdefghijklmnopqrstuvwxyz'.split('').filter((_, i) => i % 4 === 0); // 알파벳 개수를 반으로 줄임 (4번째 문자만 사용)
     const charsLen = chars.length;
     const rotateChance = 0.5; // 회전할 확률을 50%로 설정
 
@@ -113,15 +113,15 @@
 
       // 회전 효과 랜덤화
       if (Math.random() < rotateChance) {
-        sparkle.style.animation = 'sparkleFloat 3s ease-out forwards, sparkleRotation 3s ease-out forwards';
+        sparkle.style.animation = 'sparkleFloat 6s ease-out forwards, sparkleRotation 6s ease-out forwards';
       } else {
-        sparkle.style.animation = 'sparkleFloat 3s ease-out forwards';
+        sparkle.style.animation = 'sparkleFloat 6s ease-out forwards';
       }
 
       document.body.appendChild(sparkle);
 
-      // 3초 후 파티클 제거
-      setTimeout(() => sparkle.remove(), 3000);
+      // 6초 후 파티클 제거
+      setTimeout(() => sparkle.remove(), 6000);
     });
   </script>
 </body>
