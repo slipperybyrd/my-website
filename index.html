@@ -10,7 +10,7 @@
       padding: 0;
       background: white;
       color: black;
-      font-family: "Times new Roman", Courier, monospace;
+      font-family: "Courier New", Courier, monospace;
       overflow: hidden;
     }
 
@@ -95,21 +95,33 @@
   </div>
 
   <script>
-    const chars = 'abcdefghijklmnopqrstuvwxyz';
+    const chars = 'abcdefghijklmnopqrstuvwxyz'.split('').filter((_, i) => i % 2 === 0); // 알파벳 개수를 약 3/2로 줄임 (홀수 인덱스 문자만 사용)
+    const charsLen = chars.length;
+    const rotateChance = 0.5; // 회전할 확률을 50%로 설정
 
     document.addEventListener('mousemove', (e) => {
-      const char = chars[Math.floor(Math.random() * chars.length)];
+      const char = chars[Math.floor(Math.random() * charsLen)];
 
       const sparkle = document.createElement('div');
       sparkle.classList.add('sparkle');
       sparkle.textContent = char;
 
+      // 텍스트 크기 설정
       sparkle.style.fontSize = `${Math.floor(Math.random() * 4) + 8}px`;
       sparkle.style.left = `${e.clientX + (Math.random() * 10 - 5)}px`;
       sparkle.style.top = `${e.clientY + (Math.random() * 10 - 5)}px`;
+
+      // 회전 효과 랜덤화
+      if (Math.random() < rotateChance) {
+        sparkle.style.animation = 'sparkleFloat 3s ease-out forwards, sparkleRotation 3s ease-out forwards';
+      } else {
+        sparkle.style.animation = 'sparkleFloat 3s ease-out forwards';
+      }
+
       document.body.appendChild(sparkle);
 
-      setTimeout(() => sparkle.remove(), 3000); // 3초 후 제거
+      // 3초 후 파티클 제거
+      setTimeout(() => sparkle.remove(), 3000);
     });
   </script>
 </body>
