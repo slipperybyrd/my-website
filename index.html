@@ -52,23 +52,32 @@
       position: absolute;
       font-family: "Times New Roman", serif;
       color: black;
-      opacity: 0.7;
+      opacity: 0.8;
       pointer-events: none;
-      animation: sparkleFloat 2s ease-out forwards; /* 부드럽게 떠오르는 애니메이션 */
+      animation: sparkleFloat 3s ease-out forwards, sparkleRotation 3s ease-out forwards; /* 회전, 부풀기 애니메이션 추가 */
     }
 
     @keyframes sparkleFloat {
       0% {
-        opacity: 0.8;
-        transform: translateY(0) scale(1);
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
       }
       50% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1.1);
+        opacity: 0.7;
+        transform: translateY(-15px) scale(1.2) rotate(45deg); /* 살짝 비틀리며 떠오름 */
       }
       100% {
         opacity: 0;
-        transform: translateY(-30px) scale(1.2);
+        transform: translateY(-30px) scale(1.5) rotate(90deg); /* 더 떠오르며 회전, 크기 확대 */
+      }
+    }
+
+    @keyframes sparkleRotation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg); /* 전체 회전 */
       }
     }
   </style>
@@ -100,7 +109,7 @@
       sparkle.style.top = `${e.clientY + (Math.random() * 10 - 5)}px`;
       document.body.appendChild(sparkle);
 
-      setTimeout(() => sparkle.remove(), 2000); // 애니메이션이 끝난 후 삭제
+      setTimeout(() => sparkle.remove(), 3000); // 3초 후 제거
     });
   </script>
 </body>
