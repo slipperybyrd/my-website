@@ -54,7 +54,7 @@
       color: black;
       opacity: 0.8;
       pointer-events: none;
-      animation: sparkleFloat 6s ease-out forwards, sparkleRotation 6s ease-out forwards; /* 속도 6초로 설정 */
+      animation: sparkleFloat 12s ease-out forwards, sparkleRotation 12s ease-out forwards; /* 12초로 연장 */
     }
 
     @keyframes sparkleFloat {
@@ -64,11 +64,11 @@
       }
       50% {
         opacity: 0.7;
-        transform: translateY(-15px) scale(1.2) rotate(45deg); /* 살짝 비틀리며 떠오름 */
+        transform: translateY(-20px) scale(1.2) rotate(45deg);
       }
       100% {
         opacity: 0;
-        transform: translateY(-30px) scale(1.5) rotate(90deg); /* 더 떠오르며 회전, 크기 확대 */
+        transform: translateY(-50px) scale(1.5) rotate(90deg);
       }
     }
 
@@ -77,7 +77,7 @@
         transform: rotate(0deg);
       }
       100% {
-        transform: rotate(360deg); /* 전체 회전 */
+        transform: rotate(360deg);
       }
     }
   </style>
@@ -95,9 +95,10 @@
   </div>
 
   <script>
-    const chars = 'abcdefghijklmnopqrstuvwxyz'.split('').filter((_, i) => i % 4 === 0); // 알파벳 개수를 반으로 줄임 (4번째 문자만 사용)
+    // 알파벳을 더 줄임 (기존 필터에서 한 번 더 필터)
+    const chars = 'abcdefghijklmnopqrstuvwxyz'.split('').filter((_, i) => i % 8 === 0); 
     const charsLen = chars.length;
-    const rotateChance = 0.5; // 회전할 확률을 50%로 설정
+    const rotateChance = 0.5;
 
     document.addEventListener('mousemove', (e) => {
       const char = chars[Math.floor(Math.random() * charsLen)];
@@ -106,22 +107,20 @@
       sparkle.classList.add('sparkle');
       sparkle.textContent = char;
 
-      // 텍스트 크기 설정
       sparkle.style.fontSize = `${Math.floor(Math.random() * 4) + 8}px`;
       sparkle.style.left = `${e.clientX + (Math.random() * 10 - 5)}px`;
       sparkle.style.top = `${e.clientY + (Math.random() * 10 - 5)}px`;
 
-      // 회전 효과 랜덤화
       if (Math.random() < rotateChance) {
-        sparkle.style.animation = 'sparkleFloat 6s ease-out forwards, sparkleRotation 6s ease-out forwards';
+        sparkle.style.animation = 'sparkleFloat 12s ease-out forwards, sparkleRotation 12s ease-out forwards';
       } else {
-        sparkle.style.animation = 'sparkleFloat 6s ease-out forwards';
+        sparkle.style.animation = 'sparkleFloat 12s ease-out forwards';
       }
 
       document.body.appendChild(sparkle);
 
-      // 6초 후 파티클 제거
-      setTimeout(() => sparkle.remove(), 6000);
+      // 12초 후 제거
+      setTimeout(() => sparkle.remove(), 12000);
     });
   </script>
 </body>
