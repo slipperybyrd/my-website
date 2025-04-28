@@ -19,8 +19,8 @@
       left: 20px;
       display: flex;
       flex-direction: column;
-      gap: 5px; /* 위아래 간격 더 좁게 */
-      font-size: 80%; /* 폰트 크기 줄임 */
+      gap: 5px; /* 링크 위아래 간격 */
+      font-size: 80%;
     }
     a {
       text-decoration: none;
@@ -33,7 +33,7 @@
       pointer-events: none;
       user-select: none;
       font-size: 6pt;
-      animation: sparkleFloat 8s ease-out forwards;
+      animation: sparkleFloat 12s ease-out forwards; /* 12초로 느리게 */
     }
     @keyframes sparkleFloat {
       0% {
@@ -50,7 +50,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 400px; /* 비디오 가로 크기 약 4배 키움 */
+      width: 400px; /* 비디오 크기 */
       max-width: 90%;
     }
   </style>
@@ -73,8 +73,15 @@ const chars = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const charsLen = chars.length;
 const rotateChance = 0.5;
 
+let lastTime = 0;
+const spawnInterval = 100; // ms, 더 띄엄띄엄
+
 document.addEventListener('mousemove', (e) => {
-  if (Math.random() > 0.66) return; // 알파벳 개수 또 줄였음
+  const now = Date.now();
+  if (now - lastTime < spawnInterval) return; 
+  lastTime = now;
+
+  if (Math.random() > 0.66) return; // 알파벳 개수 조절
 
   const char = chars[Math.floor(Math.random() * charsLen)];
   const sparkle = document.createElement('div');
@@ -83,19 +90,19 @@ document.addEventListener('mousemove', (e) => {
 
   sparkle.style.left = `${e.clientX + (Math.random() * 10 - 5)}px`;
   sparkle.style.top = `${e.clientY + (Math.random() * 10 - 5)}px`;
-  sparkle.style.fontSize = `${Math.floor(Math.random() * 2) + 6}px`; // 6~8pt 랜덤 크기
+  sparkle.style.fontSize = `${Math.floor(Math.random() * 2) + 6}px`;
 
   if (Math.random() < rotateChance) {
-    sparkle.style.animation = 'sparkleFloat 8s ease-out forwards'; // 회전
+    sparkle.style.animation = 'sparkleFloat 12s ease-out forwards'; 
   } else {
-    sparkle.style.animation = 'sparkleFloat 8s ease-out forwards'; // 동일 애니메이션 (회전 포함)
+    sparkle.style.animation = 'sparkleFloat 12s ease-out forwards';
   }
 
   document.body.appendChild(sparkle);
 
   setTimeout(() => {
     sparkle.remove();
-  }, 8000); // 8초 동안 떠오르다가 사라짐
+  }, 12000); // 12초 동안 유지
 });
 </script>
 
