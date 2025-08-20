@@ -2,28 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>About </title>
+  <title>About - Yein</title>
+  <link rel="icon" href="/favicon.png" type="image/png">
   <style>
-    body {
-      margin: 20px;
-      font-family: 'Times New Roman', serif;
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
       background: white;
+      overflow: hidden;
+      font-family: 'Times New Roman', serif;
+      cursor: url('https://upload.wikimedia.org/wikipedia/commons/3/3d/Arrow_icon_black.svg'), auto;
     }
-    .intro {
-      font-size: 16px;
+    .container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 80%;
+    }
+    a {
+      text-decoration: none;
+      color: black;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .content {
+      position: absolute;
+      top: 80px;
+      left: 20px;
+      max-width: 600px;
       line-height: 1.5;
+    }
+    .sparkle {
+      position: absolute;
+      color: black;
+      opacity: 1;
+      pointer-events: none;
+      user-select: none;
+      font-size: 6-8pt;
+      animation: sparkleFloat 12s ease-out forwards;
+    }
+    @keyframes sparkleFloat {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(0, -200px) scale(1.2) rotate(720deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="intro">
-    <h1> ... </h1>
-    <p>We often long to remain in the quiet threshold of childhood, where objects hum with secret logic and reality slips gently out of frame. A table just out of reach, steam from something that shouldn’t breathe, letters dissipating beneath a veil—these are not dreams, but subtle distortions that linger under waking life. They speak a language we half-remember: shaped not by clarity, but by intuition, tension, and rupture.
+
+<div class="container">
+  <a href="index.html">home</a>
+</div>
+
+<div class="content">
+  <h1>About</h1>
+  <p>We often long to remain in the quiet threshold of childhood, where objects hum with secret logic and reality slips gently out of frame. A table just out of reach, steam from something that shouldn’t breathe, letters dissipating beneath a veil—these are not dreams, but subtle distortions that linger under waking life. They speak a language we half-remember: shaped not by clarity, but by intuition, tension, and rupture.
 
 In times of fracture—political and emotional—such misalignments don’t just soothe; they offer another kind of truth. Not one we explain, but one we enter. A language beyond words, where misunderstanding becomes closeness, and strangeness, a kind of shelter.
 
 When the present becomes unspeakable, it’s often the gestures, textures, and quiet dissonances that remain. What surrealism once offered wasn’t chaos, but a reordering of sense—a belief in meaning beyond logic. Childhood, too, is not a place we return to, but a flickering tool: one that scatters what’s solid, so something true might briefly glimmer in the fragments.</p>
-   
-  </div>
+  
+</div>
+
+<script>
+const chars = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const charsLen = chars.length;
+const rotateChance = 0.5;
+let lastTime = 0;
+const spawnInterval = 100;
+
+document.addEventListener('mousemove', (e) => {
+  const now = Date.now();
+  if (now - lastTime < spawnInterval) return; 
+  lastTime = now;
+
+  if (Math.random() > 0.66) return;
+
+  const char = chars[Math.floor(Math.random() * charsLen)];
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.textContent = char;
+
+  sparkle.style.left = `${e.clientX + (Math.random() * 10 - 5)}px`;
+  sparkle.style.top = `${e.clientY + (Math.random() * 10 - 5)}px`;
+  sparkle.style.fontSize = `${Math.floor(Math.random() * 2) + 6}px`;
+
+  sparkle.style.animation = 'sparkleFloat 12s ease-out forwards';
+
+  document.body.appendChild(sparkle);
+
+  setTimeout(() => {
+    sparkle.remove();
+  }, 12000);
+});
+</script>
+
 </body>
 </html>
