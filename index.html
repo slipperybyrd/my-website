@@ -1,66 +1,59 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>yein - Home</title>
-  <link rel="icon" href="/favicon.png" type="image/png">
+<meta charset="UTF-8">
+<title>yein</title>
+<link rel="icon" href="/favicon.png" type="image/png">
+<style>
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  background: white;
+  overflow: hidden;
+  font-family: 'Times New Roman', serif;
+  cursor: url('https://upload.wikimedia.org/wikipedia/commons/3/3d/Arrow_icon_black.svg'), auto;
+}
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: white;
-      overflow: hidden;
-      font-family: 'Times New Roman', serif;
-      cursor: url('https://upload.wikimedia.org/wikipedia/commons/3/3d/Arrow_icon_black.svg'), auto;
-    }
+.container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px; /* 위아래 간격 반으로 줄임 */
+  font-size: 40%; /* 기존 80% → 절반 */
+}
 
-    .container {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px; /* 링크 위아래 간격 */
-      font-size: 80%;
-    }
+a {
+  text-decoration: none;
+  color: black;
+}
 
-    a {
-      text-decoration: none;
-      color: black;
-    }
+a:hover {
+  cursor: pointer;
+}
 
-    .sparkle {
-      position: absolute;
-      color: black;
-      opacity: 1;
-      pointer-events: none;
-      user-select: none;
-      font-size: 6pt;
-      animation: sparkleFloat 12s ease-out forwards;
-    }
+.sparkle {
+  position: absolute;
+  color: black;
+  opacity: 1;
+  pointer-events: none;
+  user-select: none;
+  font-size: 6pt;
+  animation: sparkleFloat 12s ease-out forwards;
+}
 
-    @keyframes sparkleFloat {
-      0% {
-        transform: translate(0, 0) scale(1) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(0, -200px) scale(1.2) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    .center-image {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 350px; 
-      max-width: 90%;
-    }
-  </style>
+@keyframes sparkleFloat {
+  0% {
+    transform: translate(0,0) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0,-200px) scale(1.2) rotate(720deg);
+    opacity: 0;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -70,37 +63,32 @@
   <a href="#">news</a>
 </div>
 
-<img src="table png.png" alt="Table Image" class="center-image">
-
 <script>
 const chars = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const charsLen = chars.length;
 const rotateChance = 0.5;
-
 let lastTime = 0;
-const spawnInterval = 100; 
+const spawnInterval = 100;
 
 document.addEventListener('mousemove', (e) => {
   const now = Date.now();
-  if (now - lastTime < spawnInterval) return; 
+  if(now - lastTime < spawnInterval) return;
   lastTime = now;
-
-  if (Math.random() > 0.66) return;
+  if(Math.random() > 0.33) return; // 알파벳 수 반으로 줄임
 
   const char = chars[Math.floor(Math.random() * charsLen)];
   const sparkle = document.createElement('div');
   sparkle.classList.add('sparkle');
   sparkle.textContent = char;
+  sparkle.style.left = `${e.clientX + (Math.random()*10-5)}px`;
+  sparkle.style.top = `${e.clientY + (Math.random()*10-5)}px`;
+  sparkle.style.fontSize = `${Math.floor(Math.random()*2)+6}px`;
 
-  sparkle.style.left = `${e.clientX + (Math.random() * 10 - 5)}px`;
-  sparkle.style.top = `${e.clientY + (Math.random() * 10 - 5)}px`;
-  sparkle.style.fontSize = `${Math.floor(Math.random() * 2) + 6}px`;
+  sparkle.style.animation = 'sparkleFloat 12s ease-out forwards';
 
   document.body.appendChild(sparkle);
 
-  setTimeout(() => {
-    sparkle.remove();
-  }, 12000); 
+  setTimeout(()=>{ sparkle.remove(); }, 12000);
 });
 </script>
 
