@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>yein</title>
-
-  <link rel="icon" href="/favicon.png" type="image/png">
-  
+  <title>My Minimal Page</title>
   <style>
     html, body {
       margin: 0;
@@ -22,7 +19,7 @@
       left: 20px;
       display: flex;
       flex-direction: column;
-      gap: 2.5px; /* 링크 위아래 간격 절반 */
+      gap: 5px; /* 링크 위아래 간격 */
       font-size: 80%;
     }
     a {
@@ -35,8 +32,8 @@
       opacity: 1;
       pointer-events: none;
       user-select: none;
-      font-size: 6-8pt;
-      animation: sparkleFloat 12s ease-out forwards;
+      font-size: 6pt;
+      animation: sparkleFloat 12s ease-out forwards; /* 12초로 느리게 */
     }
     @keyframes sparkleFloat {
       0% {
@@ -48,12 +45,12 @@
         opacity: 0;
       }
     }
-    .center-image {
+    .center-video {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 350px; /* 필요에 따라 조절 */
+      width: 400px; /* 비디오 크기 */
       max-width: 90%;
     }
   </style>
@@ -61,12 +58,15 @@
 <body>
 
 <div class="container">
-  <a href="about.html">about</a>
+  <a href="#">about</a>
   <a href="#">works</a>
   <a href="#">news</a>
 </div>
 
-<img src="table png.png" alt="table image" class="center-image">
+<video class="center-video" autoplay muted loop playsinline>
+  <source src="table png.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 <script>
 const chars = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -74,11 +74,37 @@ const charsLen = chars.length;
 const rotateChance = 0.5;
 
 let lastTime = 0;
-const spawnInterval = 100; // ms
+const spawnInterval = 100; // ms, 더 띄엄띄엄
 
 document.addEventListener('mousemove', (e) => {
   const now = Date.now();
   if (now - lastTime < spawnInterval) return; 
   lastTime = now;
 
-  if (Math.random() > 0.66) return; // 알
+  if (Math.random() > 0.66) return; // 알파벳 개수 조절
+
+  const char = chars[Math.floor(Math.random() * charsLen)];
+  const sparkle = document.createElement('div');
+  sparkle.classList.add('sparkle');
+  sparkle.textContent = char;
+
+  sparkle.style.left = `${e.clientX + (Math.random() * 10 - 5)}px`;
+  sparkle.style.top = `${e.clientY + (Math.random() * 10 - 5)}px`;
+  sparkle.style.fontSize = `${Math.floor(Math.random() * 2) + 6}px`;
+
+  if (Math.random() < rotateChance) {
+    sparkle.style.animation = 'sparkleFloat 12s ease-out forwards'; 
+  } else {
+    sparkle.style.animation = 'sparkleFloat 12s ease-out forwards';
+  }
+
+  document.body.appendChild(sparkle);
+
+  setTimeout(() => {
+    sparkle.remove();
+  }, 12000); // 12초 동안 유지
+});
+</script>
+
+</body>
+</html>
